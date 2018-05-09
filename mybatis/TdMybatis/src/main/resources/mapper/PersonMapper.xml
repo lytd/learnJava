@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="td.learn.mybatis.dao.IPersonMapper">
+    <resultMap id="personMap" type="td.learn.mybatis.model.Person">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="age" property="age"/>
+        <result column="remark" property="remark" jdbcType="VARCHAR" typeHandler="td.learn.mybatis.tdbatis.MyTypeHander"/>
+    </resultMap>
+
+    <select id="getNameById" resultType="String">
+        select name from person where id=#{id}
+    </select>
+
+    <select id="getPersoninfo" resultMap="personMap">
+        select * from person where id=#{id}
+
+    </select>
+    <insert id="addPerson" parameterType="td.learn.mybatis.model.Person" useGeneratedKeys="true" keyProperty="id">
+        insert into person(id,age,name,remark,insert_time)
+        VALUES  (#{id},#{age},#{name},#{remark,jdbcType=VARCHAR,typeHandler=td.learn.mybatis.tdbatis.MyTypeHander},#{insertTime})
+    </insert>
+</mapper>
