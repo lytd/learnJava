@@ -1,9 +1,10 @@
 package td.learn.spring.v1.servlet;
 
-import td.learn.spring.v1.annotation.TdAutoWried;
-import td.learn.spring.v1.annotation.TdController;
-import td.learn.spring.v1.annotation.TdService;
-import td.learn.spring.v1.demo.action.MyAction;
+import td.learn.spring.common.demo.util.StringUtil;
+import td.learn.spring.framework.annotation.TdAutoWried;
+import td.learn.spring.framework.annotation.TdController;
+import td.learn.spring.framework.annotation.TdService;
+import td.learn.spring.common.demo.action.MyAction;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -92,21 +93,20 @@ public class TdDispatchServlet extends HttpServlet {
                 String beanName = null;
                 //判断注解类型
                 if (clazz.isAnnotationPresent(TdController.class)) {
-
-                        beanName = getFirstLower(clazz.getSimpleName());
+                        //获取首字母小写的类名
+                        beanName = StringUtil.getFirstLower(clazz.getSimpleName());
                     Object obj=clazz.newInstance();
                     ioc.put(beanName, obj);
 
                 } else if (clazz.isAnnotationPresent(TdService.class)) {
-
-                        beanName = getFirstLower(clazz.getSimpleName());
+                        //获取首字母小写的类名
+                        beanName = StringUtil.getFirstLower(clazz.getSimpleName());
                         Object obj=clazz.newInstance();
 
                     ioc.put(beanName, obj);
-                    //判断是否为接口
-
+                    //获取此实现类的所有接口
                     Class<?>[] interfaces = clazz.getInterfaces();
-
+                    //将实现类的实例保存给IOC容器一份
                     for (Class<?> i :interfaces){
                         ioc.put(i.getName(),obj);
                     }
@@ -162,10 +162,5 @@ public class TdDispatchServlet extends HttpServlet {
 
     }
 
-    private String getFirstLower(String str){
-        char[] letters=str.toCharArray();
-        letters[0]+=32;
-        return String.valueOf(letters);
 
-    }
 }

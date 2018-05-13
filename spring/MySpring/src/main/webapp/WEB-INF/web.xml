@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app >
+<web-app xmlns:xsi="w3.org/2001/XMLSchema-instance"
+         xmlns="xmlns.jcp.org/xml/ns/javaee"
+         xsi:schemaLocation="xmlns.jcp.org/xml/ns/javaee xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd
+xmlns.jcp.org/xml/ns/javaee "
+         id="WebApp_ID"
+         version="3.1">
     <display-name>Td Spring Application</display-name>
 
     <servlet>
         <servlet-name>tdmvc</servlet-name>
-        <servlet-class>td.learn.spring.v1.servlet.TdDispatchServlet</servlet-class>
+        <servlet-class>td.learn.spring.v2.servlet.TdDispatchServletV2</servlet-class>
         <init-param>
             <param-name>configLocation</param-name>
             <param-value>classpath:application.properties</param-value>
